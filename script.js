@@ -2,7 +2,7 @@ const vagasFixas = [
   { empresa: "Artemoda", modelo: "Polo", placa: "STV-3F39" },
   { empresa: "Ceasa embalagens", modelo: "Ranger", placa: "FII-3662" },
   { empresa: "Ceasa embalagens", modelo: "Ecosport", placa: "EPB-1440" },
-  { empresa: "AG CVC", modelo: "Ecosport", placa: "EBH-3439" },
+  { empresa: "Agencia CVC", modelo: "Ecosport", placa: "EBH-3439" },
   { empresa: "Despachante Xico", modelo: "HB20", placa: "FVU-5544" },
   { empresa: "Edylene Psique", modelo: "Azera", placa: "EYW-1802" },
   { empresa: "Edylene Psique", modelo: "Courier", placa: "FBD-1809" },
