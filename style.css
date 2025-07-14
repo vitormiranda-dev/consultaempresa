@@ -1,0 +1,86 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: url("esta2.avif") no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.content-box {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  border-radius: 15px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+h1,
+h2 {
+  color: rgba(0, 102, 26, 1);
+}
+
+.tabela {
+  color: green;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.campo-busca {
+  position: relative;
+  width: 330px;
+  margin: 20px auto;
+}
+
+.campo-busca input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  font-size: 16px;
+  outline: none;
+}
+
+.campo-busca input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.campo-busca .icone {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+}
+
+/* Reponsividade para celulares */
+@media (max-width: 600px) {
+  .campo-busca {
+    flex-direction: row;
+    padding: 6px 10px;
+    max-width: 90%;
+  }
+
+  .campo-busca input {
+    font-size: 1rem;
+  }
+
+  .campo-busca .icone {
+    font-size: 1rem;
+    margin-left: 6px;
+  }
+}
