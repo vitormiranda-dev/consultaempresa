@@ -35,8 +35,6 @@ const vagasFixas = [
   { empresa: "Tia Lina", modelo: "Etios", placa: "FPJ-4990" },
   { empresa: "Tia Lina", modelo: "T-cross", placa: "ESE-6J34" },
   { empresa: "Vertice", modelo: "Onix", placa: "FYS-1D01" },
-  { empresa: "Vertice", modelo: "Tucson", placa: "FAM-7G96" },
-  { empresa: "Vertice", modelo: "Fiesta", placa: "FBD-3342" },
   { empresa: "Vertice", modelo: "kicks", placa: "FPQ-5F43" },
 ];
 
