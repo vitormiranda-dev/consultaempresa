@@ -6,6 +6,7 @@ const vagasFixas = [
   { empresa: "Despachante Xico", modelo: "HB20", placa: "FVU-5544" },
   { empresa: "Edylene Psique", modelo: "Azera", placa: "EYW-1802" },
   { empresa: "Edylene Psique", modelo: "Courier", placa: "FBD-1809" },
+   { empresa: "Edylene Psique", modelo: "Nivus", placa: "SUG-2A89" },
   { empresa: "Bolinha", modelo: "Sonic", placa: "TJZ-5H83" },
   { empresa: "Bolinha", modelo: "Virtur", placa: "GCG-9G74" },
   { empresa: "Bolinha", modelo: "Amarok", placa: "FDW-6867" },
