@@ -56,7 +56,7 @@ const sinonimos = {
   agencia: "agencia cvc",
   "sao francisco": "são francisco",
   sao: "são",
-  loja: "loja josemar",
+  
 };
 
 // Aplica o sinônimo com base na chave sem acento e minúscula
