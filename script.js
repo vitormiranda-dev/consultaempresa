@@ -47,43 +47,43 @@ const filtroInput = document.getElementById("filtro");
 function removerAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+
 const sinonimos = {
   "agencia cvc": "ag cvc",
   "cvc": "ag cvc",
   "agencia": "ag cvc",
-  "sao francisco": "sao francisco",
+  "são francisco": "sao francisco",
   "sao": "sao francisco"
 };
 
-// Remove acentos e põe em minúsculo
+// Função para remover acentos
 function removerAcentos(texto) {
-  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Aplica todos os sinônimos nas expressões compostas primeiro
-function aplicarSinonimos(texto) {
-  let resultado = removerAcentos(texto);
+// Função para aplicar os sinônimos
+function aplicarSinonimo(termo) {
+  const chave = removerAcentos(termo.toLowerCase());
+  return sinonimos[chave] || chave;
+}
 
-  // Primeiro trata expressões compostas
-  const chavesOrdenadas = Object.keys(sinonimos).sort((a, b) => b.length - a.length);
-
-  chavesOrdenadas.forEach((chave) => {
-    const chaveNormalizada = removerAcentos(chave);
-    const valor = sinonimos[chave];
-    resultado = resultado.replaceAll(chaveNormalizada, valor);
-  });
-
-  return resultado;
+// Função para aplicar sinônimos a qualquer texto
+function normalizarTexto(texto) {
+  const textoSemAcento = removerAcentos(texto.toLowerCase());
+  const palavras = textoSemAcento.split(" ");
+  return palavras
+    .map((palavra) => sinonimos[palavra] || palavra)
+    .join(" ");
 }
 
 filtroInput.addEventListener("input", () => {
   let termo = filtroInput.value.trim();
-  termo = aplicarSinonimos(termo);
+  termo = aplicarSinonimo(termo);
 
-  const filtrado = vagasFixas.filter((vaga) => {
-    const empresa = aplicarSinonimos(vaga.empresa);
-    const modelo = aplicarSinonimos(vaga.modelo);
-    const placa = removerAcentos(vaga.placa);
+  const filtrado = vagasFixas.filter((v) => {
+    const empresa = normalizarTexto(v.empresa);
+    const modelo = normalizarTexto(v.modelo);
+    const placa = removerAcentos(v.placa.toLowerCase());
 
     return (
       empresa.includes(termo) ||
@@ -94,6 +94,7 @@ filtroInput.addEventListener("input", () => {
 
   render(filtrado);
 });
+
 
 
 
