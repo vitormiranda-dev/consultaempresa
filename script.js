@@ -55,21 +55,35 @@ function render(lista) {
 filtroInput.addEventListener("input", () => {
   let termo = filtroInput.value.toLowerCase().trim();
 
-  const sinonimos = {
-    "agencia cvc": "ag cvc",
-    cvc: "ag cvc",
-    agencia: "ag cvc",
-  };
+const sinonimos = {
+  "agencia cvc": "ag cvc",
+  "cvc": "ag cvc",
+  "agencia": "ag cvc",
+  "sao francisco": "são francisco",
+  "sao": "são"
+};
 
-  if (sinonimos[termo]) {
-    termo = sinonimos[termo];
-  }
+// Função para remover acentos
+function removerAcentos(texto) {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
 
-  const filtrado = vagasFixas.filter(
-    (v) =>
-      v.empresa.toLowerCase().includes(termo) ||
-      v.placa.toLowerCase().includes(termo) ||
-      v.modelo.toLowerCase().includes(termo)
+// Função para aplicar sinônimos
+function aplicarSinonimo(termo) {
+  const chave = removerAcentos(termo.toLowerCase());
+  return sinonimos[chave] || termo;
+}
+
+// Exemplo de uso dentro de um evento (como input ou submit)
+input.addEventListener("input", () => {
+  let termo = input.value.trim(); // Supondo que 'input' seja seu campo de busca
+  termo = aplicarSinonimo(termo);
+  termo = removerAcentos(termo.toLowerCase());
+
+  const filtrado = vagasFixas.filter((v) =>
+    removerAcentos(v.empresa.toLowerCase()).includes(termo) ||
+    removerAcentos(v.placa.toLowerCase()).includes(termo) ||
+    removerAcentos(v.modelo.toLowerCase()).includes(termo)
   );
 
   render(filtrado);
