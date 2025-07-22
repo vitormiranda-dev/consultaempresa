@@ -1,13 +1,13 @@
 const vagasFixas = [
   { empresa: "Artemoda", modelo: "Polo", placa: "STV-3F39" },
-   { empresa: "São Francisco", modelo: "Livina", placa: "LQK-8223" },
+  { empresa: "São Francisco", modelo: "Livina", placa: "LQK-8223" },
   { empresa: "Ceasa embalagens", modelo: "Ranger", placa: "FII-3662" },
   { empresa: "Ceasa embalagens", modelo: "Ecosport", placa: "EPB-1440" },
   { empresa: "Agencia CVC", modelo: "Ecosport", placa: "EBH-3439" },
   { empresa: "Despachante Xico", modelo: "HB20", placa: "FVU-5544" },
   { empresa: "Edylene Psique", modelo: "Azera", placa: "EYW-1802" },
   { empresa: "Edylene Psique", modelo: "Courier", placa: "FBD-1809" },
-   { empresa: "Edylene Psique", modelo: "Nivus", placa: "SUG-2A89" },
+  { empresa: "Edylene Psique", modelo: "Nivus", placa: "SUG-2A89" },
   { empresa: "Bolinha", modelo: "Sonic", placa: "TJZ-5H83" },
   { empresa: "Bolinha", modelo: "Virtur", placa: "GCG-9G74" },
   { empresa: "Bolinha", modelo: "Amarok", placa: "FDW-6867" },
@@ -43,6 +43,27 @@ const vagasFixas = [
 const corpoTabela = document.querySelector("#tabela tbody");
 const filtroInput = document.getElementById("filtro");
 
+// Função para remover acentos
+function removerAcentos(texto) {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+// Dicionário de sinônimos
+const sinonimos = {
+  "agencia cvc": "ag cvc",
+  "cvc": "ag cvc",
+  "agencia": "ag cvc",
+  "sao francisco": "são francisco",
+  "sao": "são"
+};
+
+// Aplica o sinônimo com base na chave sem acento e minúscula
+function aplicarSinonimo(termo) {
+  const chave = removerAcentos(termo.toLowerCase());
+  return sinonimos[chave] || termo;
+}
+
+// Função para renderizar
 function render(lista) {
   corpoTabela.innerHTML = "";
   lista.forEach((vaga) => {
@@ -52,38 +73,16 @@ function render(lista) {
   });
 }
 
+// Filtro em tempo real
 filtroInput.addEventListener("input", () => {
-  let termo = filtroInput.value.toLowerCase().trim();
-
-const sinonimos = {
-  "agencia cvc": "ag cvc",
-  "cvc": "ag cvc",
-  "agencia": "ag cvc",
-  "sao francisco": "são francisco",
-  "sao": "são"
-};
-
-// Função para remover acentos
-function removerAcentos(texto) {
-  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-// Função para aplicar sinônimos
-function aplicarSinonimo(termo) {
-  const chave = removerAcentos(termo.toLowerCase());
-  return sinonimos[chave] || termo;
-}
-
-// Exemplo de uso dentro de um evento (como input ou submit)
-input.addEventListener("input", () => {
-  let termo = input.value.trim(); // Supondo que 'input' seja seu campo de busca
+  let termo = filtroInput.value.trim();
   termo = aplicarSinonimo(termo);
   termo = removerAcentos(termo.toLowerCase());
 
   const filtrado = vagasFixas.filter((v) =>
     removerAcentos(v.empresa.toLowerCase()).includes(termo) ||
-    removerAcentos(v.placa.toLowerCase()).includes(termo) ||
-    removerAcentos(v.modelo.toLowerCase()).includes(termo)
+    removerAcentos(v.modelo.toLowerCase()).includes(termo) ||
+    removerAcentos(v.placa.toLowerCase()).includes(termo)
   );
 
   render(filtrado);
