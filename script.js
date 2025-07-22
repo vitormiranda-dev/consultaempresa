@@ -3,7 +3,7 @@ const vagasFixas = [
   { empresa: "São Francisco", modelo: "Livina", placa: "LQK-8223" },
   { empresa: "Ceasa embalagens", modelo: "Ranger", placa: "FII-3662" },
   { empresa: "Ceasa embalagens", modelo: "Ecosport", placa: "EPB-1440" },
-  { empresa: "Agencia CVC", modelo: "Ecosport", placa: "EBH-3439" },
+  { empresa: "Agência CVC", modelo: "Ecosport", placa: "EBH-3439" },
   { empresa: "Despachante Xico", modelo: "HB20", placa: "FVU-5544" },
   { empresa: "Edylene Psique", modelo: "Azera", placa: "EYW-1802" },
   { empresa: "Edylene Psique", modelo: "Courier", placa: "FBD-1809" },
@@ -17,7 +17,7 @@ const vagasFixas = [
   { empresa: "Lacore", modelo: "Duster", placa: "QNO-4J03" },
   { empresa: "Lacore", modelo: "Kicks", placa: "DWW-3J70" },
   { empresa: "Lacore", modelo: "Fiesta", placa: "FMS-1625" },
-  { empresa: "Lojas Japonesa", modelo: "Uno", placa: "DED-0685" },
+  { empresa: "Loja Japonesa", modelo: "Uno", placa: "DED-0685" },
   { empresa: "Loja Josemar", modelo: "Renegade", placa: "FUU-5H93" },
   { empresa: "Mega Mix Cursos", modelo: "Compass", placa: "GIN-1J05" },
   { empresa: "Mega Mix Cursos", modelo: "Onix", placa: "FOB-1765" },
@@ -32,7 +32,7 @@ const vagasFixas = [
   { empresa: "Campestre", modelo: "Polo", placa: "SUV-8G86" },
   { empresa: "Campestre", modelo: "Fielder", placa: "DRB-2I47" },
   { empresa: "Sport Bike", modelo: "Siena", placa: "EFZ-9267" },
-  { empresa: "Lojas Tropical", modelo: "Onix", placa: "TKB-4G62" },
+  { empresa: "Loja Tropical", modelo: "Onix", placa: "TKB-4G62" },
   { empresa: "Tia Lina", modelo: "HR-V", placa: "BVT-0482" },
   { empresa: "Tia Lina", modelo: "Etios", placa: "FPJ-4990" },
   { empresa: "Tia Lina", modelo: "T-cross", placa: "ESE-6J34" },
@@ -48,53 +48,45 @@ function removerAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+// Dicionário de sinônimos
 const sinonimos = {
   "agencia cvc": "ag cvc",
-  "cvc": "ag cvc",
-  "agencia": "ag cvc",
-  "são francisco": "sao francisco",
-  "sao": "sao francisco"
+  cvc: "ag cvc",
+  cvc: "agencia cvc",
+  agencia: "agencia cvc",
+  "sao francisco": "são francisco",
+  sao: "são",
+  loja: "loja josemar",
 };
 
-// Função para remover acentos
-function removerAcentos(texto) {
-  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-// Função para aplicar os sinônimos
+// Aplica o sinônimo com base na chave sem acento e minúscula
 function aplicarSinonimo(termo) {
   const chave = removerAcentos(termo.toLowerCase());
-  return sinonimos[chave] || chave;
+  return sinonimos[chave] || termo;
 }
 
-// Função para aplicar sinônimos a qualquer texto
-function normalizarTexto(texto) {
-  const textoSemAcento = removerAcentos(texto.toLowerCase());
-  const palavras = textoSemAcento.split(" ");
-  return palavras
-    .map((palavra) => sinonimos[palavra] || palavra)
-    .join(" ");
+// Função para renderizar
+function render(lista) {
+  corpoTabela.innerHTML = "";
+  lista.forEach((vaga) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${vaga.empresa}</td><td>${vaga.modelo}</td><td>${vaga.placa}</td>`;
+    corpoTabela.appendChild(tr);
+  });
 }
 
+// Filtro em tempo real
 filtroInput.addEventListener("input", () => {
   let termo = filtroInput.value.trim();
   termo = aplicarSinonimo(termo);
+  termo = removerAcentos(termo.toLowerCase());
 
-  const filtrado = vagasFixas.filter((v) => {
-    const empresa = normalizarTexto(v.empresa);
-    const modelo = normalizarTexto(v.modelo);
-    const placa = removerAcentos(v.placa.toLowerCase());
-
-    return (
-      empresa.includes(termo) ||
-      modelo.includes(termo) ||
-      placa.includes(termo)
-    );
-  });
+  const filtrado = vagasFixas.filter(
+    (v) =>
+      removerAcentos(v.empresa.toLowerCase()).includes(termo) ||
+      removerAcentos(v.modelo.toLowerCase()).includes(termo) ||
+      removerAcentos(v.placa.toLowerCase()).includes(termo)
+  );
 
   render(filtrado);
 });
-
-
-
-
