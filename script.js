@@ -1,5 +1,6 @@
 const vagasFixas = [
   { empresa: "Artemoda", modelo: "Polo", placa: "STV-3F39" },
+   { empresa: "São Francisco", modelo: "Livina", placa: "LQK-8223" },
   { empresa: "Ceasa embalagens", modelo: "Ranger", placa: "FII-3662" },
   { empresa: "Ceasa embalagens", modelo: "Ecosport", placa: "EPB-1440" },
   { empresa: "Agencia CVC", modelo: "Ecosport", placa: "EBH-3439" },
