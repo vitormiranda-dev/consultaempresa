@@ -48,42 +48,49 @@ function removerAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Dicionário de sinônimos
 const sinonimos = {
   "agencia cvc": "ag cvc",
   "cvc": "ag cvc",
   "agencia": "ag cvc",
-  "sao francisco": "são francisco",
-  "sao": "são"
+  "são francisco": "sao francisco",
+  "sao": "sao francisco"
 };
 
-// Aplica o sinônimo com base na chave sem acento e minúscula
+// Função para remover acentos
+function removerAcentos(texto) {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+// Função para aplicar os sinônimos
 function aplicarSinonimo(termo) {
   const chave = removerAcentos(termo.toLowerCase());
-  return sinonimos[chave] || termo;
+  return sinonimos[chave] || chave;
 }
 
-// Função para renderizar
-function render(lista) {
-  corpoTabela.innerHTML = "";
-  lista.forEach((vaga) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${vaga.empresa}</td><td>${vaga.modelo}</td><td>${vaga.placa}</td>`;
-    corpoTabela.appendChild(tr);
-  });
+// Função para aplicar sinônimos a qualquer texto
+function normalizarTexto(texto) {
+  const textoSemAcento = removerAcentos(texto.toLowerCase());
+  const palavras = textoSemAcento.split(" ");
+  return palavras
+    .map((palavra) => sinonimos[palavra] || palavra)
+    .join(" ");
 }
 
-// Filtro em tempo real
 filtroInput.addEventListener("input", () => {
   let termo = filtroInput.value.trim();
   termo = aplicarSinonimo(termo);
-  termo = removerAcentos(termo.toLowerCase());
 
-  const filtrado = vagasFixas.filter((v) =>
-    removerAcentos(v.empresa.toLowerCase()).includes(termo) ||
-    removerAcentos(v.modelo.toLowerCase()).includes(termo) ||
-    removerAcentos(v.placa.toLowerCase()).includes(termo)
-  );
+  const filtrado = vagasFixas.filter((v) => {
+    const empresa = normalizarTexto(v.empresa);
+    const modelo = normalizarTexto(v.modelo);
+    const placa = removerAcentos(v.placa.toLowerCase());
+
+    return (
+      empresa.includes(termo) ||
+      modelo.includes(termo) ||
+      placa.includes(termo)
+    );
+  });
 
   render(filtrado);
 });
