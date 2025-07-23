@@ -38,6 +38,7 @@ const vagasFixas = [
   { empresa: "Tia Lina", modelo: "T-cross", placa: "ESE-6J34" },
   { empresa: "Vertice", modelo: "Onix", placa: "FYS-1D01" },
   { empresa: "Vertice", modelo: "kicks", placa: "FPQ-5F43" },
+  { empresa: "Vertice", modelo: "Onix", placa: "SYC-3G78" },
 ];
 
 const corpoTabela = document.querySelector("#tabela tbody");
