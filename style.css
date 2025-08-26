@@ -62,6 +62,7 @@ td {
   }
   .campo-busca input {
     font-size: 0.75rem;
+     height: 40px;
   }
   .content-box {
     margin-right: 5px;
