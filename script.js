@@ -89,7 +89,14 @@ filtro.addEventListener("input", () => {
 
   const filtrados = empresas.filter((e) => {
     const empresaNormalizada = removerAcentos(e.empresa.toLowerCase());
-    return empresaNormalizada.includes(termoNormalizado);
+    const modeloNormalizado  = removerAcentos(e.modelo.toLowerCase());
+    const placaNormalizada   = removerAcentos(e.placa.toLowerCase());
+
+    return (
+      empresaNormalizada.includes(termoNormalizado) ||
+      modeloNormalizado.includes(termoNormalizado) ||
+      placaNormalizada.includes(termoNormalizado)
+    );
   });
 
   renderizar(filtrados);
