@@ -1,20 +1,21 @@
 body {
-font-family: Arial, Helvetica, sans-serif;
+  font-family: "Cabin", sans-serif;
+  font-optical-sizing: auto;
   background: url("esta2.avif") no-repeat center center/cover;
   text-align: center;
-  margin: 0;
+  margin: 8px;
   padding: 0;
   color: white;
   min-height: 100vh;
+  margin-top: 10px;
 
-  background-size: cover; 
   background-position: center;
 }
 
 .content-box {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 30px;
-  border-radius: 15px;
+  border-radius: 10px;
   margin: 20px auto;
   max-width: 600px;
 }
@@ -33,42 +34,17 @@ h2 {
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 1rem;
+  border: 1px;
 }
 
 th,
 td {
   text-align: center;
-  padding: 8px;
-  border: 1px solid #ccc;
-}
-
-.campo-busca {
-  position: relative;
-  width: 330px;
-  margin: 20px auto;
-}
-
-.campo-busca input {
-  width: 100%;
-  padding: 10px 40px 10px 15px;
-  border-radius: 8px;
+  padding: 6px;
   border: 2px solid #ccc;
-  font-size: 16px;
-  outline: none;
-}
 
-.campo-busca input:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-}
-
-.campo-busca .icone {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  font-size: 18px;
+  color: white;
 }
 
 /* Reponsividade para celulares */
@@ -76,15 +52,22 @@ td {
   .campo-busca {
     flex-direction: row;
     padding: 6px 10px;
-    max-width: 90%;
+    max-width: 100%;
   }
-
+  th {
+    font-size: 0.75rem;
+  }
+  img {
+    width: 60%;
+  }
   .campo-busca input {
-    font-size: 1rem;
+    font-size: 0.75rem;
   }
-
-  .campo-busca .icone {
-    font-size: 1rem;
-    margin-left: 6px;
+  .content-box {
+    margin-right: 5px;
   }
+}
+th {
+  background-color: green;
+  color: white;
 }
