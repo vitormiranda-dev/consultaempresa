@@ -1,11 +1,11 @@
-const vagasFixas = [
+const empresas = [
   { empresa: "Artemoda", modelo: "Polo", placa: "STV-3F39" },
   { empresa: "São Francisco", modelo: "Livina", placa: "LQK-8223" },
   { empresa: "Ceasa embalagens", modelo: "Ranger", placa: "FII-3662" },
   { empresa: "Ceasa embalagens", modelo: "Ecosport", placa: "EPB-1440" },
   { empresa: "Agência CVC", modelo: "Ecosport", placa: "EBH-3439" },
   { empresa: "Despachante Xico", modelo: "HB20", placa: "FVU-5544" },
-  { empresa: "Edylene Psique", modelo: "Mercedes-benz cla 180 ", placa: "GBE-1307" },
+  { empresa: "Edylene Psique", modelo: "Azera", placa: "EYW-1802" },
   { empresa: "Edylene Psique", modelo: "Courier", placa: "FBD-1809" },
   { empresa: "Edylene Psique", modelo: "Nivus", placa: "SUG-2A89" },
   { empresa: "Bolinha", modelo: "Sonic", placa: "TJZ-5H83" },
@@ -38,56 +38,59 @@ const vagasFixas = [
   { empresa: "Tia Lina", modelo: "T-cross", placa: "ESE-6J34" },
   { empresa: "Vertice", modelo: "Onix", placa: "FYS-1D01" },
   { empresa: "Vertice", modelo: "kicks", placa: "FPQ-5F43" },
-  { empresa: "Vertice", modelo: "Onix", placa: "SYC-3G78" },
 ];
 
-const corpoTabela = document.querySelector("#tabela tbody");
-const filtroInput = document.getElementById("filtro");
+const lista = document.getElementById("lista");
+const filtro = document.getElementById("filtro");
 
-// Função para remover acentos
+const sinonimos = {
+  "edilene psique": "edylene psique",
+  edilene: "edylene psique",
+  "agencia cvc": "cvc",
+  "ag cvc": "cvc",
+  cvc: "cvc",
+  agencia: "cvc",
+  "sao francisco": "sao francisco",
+  sao: "sao francisco",
+  loja: "loja josemar",
+};
+
 function removerAcentos(texto) {
   return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Dicionário de sinônimos
-const sinonimos = {
-  "agencia cvc": "ag cvc",
-  cvc: "ag cvc",
-  cvc: "agencia cvc",
-  agencia: "agencia cvc",
-  "sao francisco": "são francisco",
-  sao: "são",
-  
-};
-
-// Aplica o sinônimo com base na chave sem acento e minúscula
 function aplicarSinonimo(termo) {
   const chave = removerAcentos(termo.toLowerCase());
-  return sinonimos[chave] || termo;
+  return sinonimos[chave] || chave;
 }
 
-// Função para renderizar
-function render(lista) {
-  corpoTabela.innerHTML = "";
-  lista.forEach((vaga) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${vaga.empresa}</td><td>${vaga.modelo}</td><td>${vaga.placa}</td>`;
-    corpoTabela.appendChild(tr);
+// Renderiza a tabela
+function renderizar(dados) {
+  lista.innerHTML = "";
+  dados.forEach((e) => {
+    lista.innerHTML += `
+      <tr>
+        <td>${e.empresa}</td>
+        <td>${e.modelo}</td>
+        <td>${e.placa}</td>
+      </tr>`;
   });
 }
 
-// Filtro em tempo real
-filtroInput.addEventListener("input", () => {
-  let termo = filtroInput.value.trim();
-  termo = aplicarSinonimo(termo);
-  termo = removerAcentos(termo.toLowerCase());
+filtro.addEventListener("input", () => {
+  const valor = filtro.value.trim();
 
-  const filtrado = vagasFixas.filter(
-    (v) =>
-      removerAcentos(v.empresa.toLowerCase()).includes(termo) ||
-      removerAcentos(v.modelo.toLowerCase()).includes(termo) ||
-      removerAcentos(v.placa.toLowerCase()).includes(termo)
-  );
+  if (valor === "") {
+    lista.innerHTML = ""; // vazio se não digitou nada
+    return;
+  }
 
-  render(filtrado);
+  const termoNormalizado = aplicarSinonimo(valor);
+
+  const filtrados = empresas.filter((e) => {
+    const empresaNormalizada = removerAcentos(e.empresa.toLowerCase());
+    return empresaNormalizada.includes(termoNormalizado);
+  });
+
+  renderizar(filtrados);
 });
