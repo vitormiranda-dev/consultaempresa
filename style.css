@@ -2,48 +2,30 @@ body {
   font-family: "Cabin", sans-serif;
   font-optical-sizing: auto;
   background: url("esta2.avif") no-repeat center center/cover;
-  text-align: center;
   margin: 8px;
-  padding: 0;
-  color: white;
   min-height: 100vh;
   margin-top: 10px;
-
   background-position: center;
 }
 
 .content-box {
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 30px;
-  border-radius: 10px;
   margin: 20px auto;
   max-width: 600px;
 }
 
-h1,
-h2 {
+h1 {
   color: rgba(0, 102, 26, 1);
 }
 
 .tabela {
-  color: green;
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-  border: 1px;
+  color: rgba(0, 102, 26, 1);
 }
 
 th,
 td {
-  text-align: center;
   padding: 6px;
   border: 2px solid #ccc;
-
   color: white;
 }
 
@@ -61,9 +43,10 @@ td {
     width: 60%;
   }
   .campo-busca input {
-    font-size: 1.1rem;
-     height: 40px;
+    font-size: 1.2rem;
+    height: 40px;
   }
+
   .content-box {
     margin-right: 5px;
   }
